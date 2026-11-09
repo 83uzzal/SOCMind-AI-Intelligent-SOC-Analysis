@@ -6,3 +6,18 @@ __pycache__/
 .env
 .DS_Store
 app.py.before-*
+
+# Local secrets and runtime data
+.env.*
+!.env.example
+*.log
+*.pid
+*.sock
+
+# Local AI analysis output
+ai-analysis.json
+ai-risk-test.json
+
+# Editor and OS files
+.vscode/
+.idea/

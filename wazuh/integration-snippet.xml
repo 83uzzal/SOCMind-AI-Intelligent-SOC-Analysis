@@ -1,0 +1,10 @@
+<!-- Add this block inside the Wazuh ossec_config section -->
+<integration>
+  <name>custom-ai_soc</name>
+  <hook_url>http://127.0.0.1:8000/analyze</hook_url>
+  <api_key>unused</api_key>
+  <rule_id>100121,99915,60122,550,553,554</rule_id>
+  <alert_format>json</alert_format>
+  <timeout>300</timeout>
+  <retries>1</retries>
+</integration>

@@ -1,0 +1,25 @@
+<!-- Windows Application Events -->
+<localfile>
+  <location>Application</location>
+  <log_format>eventchannel</log_format>
+</localfile>
+
+<!-- Windows Security Events -->
+<localfile>
+  <location>Security</location>
+  <log_format>eventchannel</log_format>
+  <query>Event/System[(EventID=4625)]</query>
+</localfile>
+
+<!-- Windows System Events -->
+<localfile>
+  <location>System</location>
+  <log_format>eventchannel</log_format>
+</localfile>
+
+<!-- USB Device Activity Events -->
+<localfile>
+  <location>Microsoft-Windows-DriverFrameworks-UserMode/Operational</location>
+  <log_format>eventchannel</log_format>
+  <query>Event/System[(EventID=2003 or EventID=2100 or EventID=2101 or EventID=2102 or EventID=2105 or EventID=2106)]</query>
+</localfile>

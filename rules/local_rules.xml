@@ -1,0 +1,64 @@
+<!-- Local rules -->
+
+<!-- Modify it at your will. -->
+<!-- Copyright (C) 2015, Wazuh Inc. -->
+
+<!-- Example -->
+<group name="local,syslog,sshd,">
+
+  <!--
+  Dec 10 01:02:02 host sshd[1234]: Failed none for root from 1.1.1.1 port 1066 ssh2
+  -->
+  <rule id="100001" level="5">
+    <if_sid>5716</if_sid>
+    <srcip>1.1.1.1</srcip>
+    <description>sshd: authentication failed from IP 1.1.1.1.</description>
+    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,</group>
+  </rule>
+
+</group>
+
+<group name="ai_soc,">
+  <rule id="100120" level="5">
+    <if_sid>86600</if_sid>
+    <field name="event_type" type="pcre2">^(ai_soc_analysis|windows_security_event|suricata_alert)$</field>
+    <description>AI SOC: Analysis generated for a security alert</description>
+    <group>security_analysis,</group>
+  </rule>
+
+  <rule id="100121" level="5">
+    <if_sid>86601</if_sid>
+    <field name="alert.signature">^ET POLICY Windows Update P2P Activity$</field>
+    <description>AI SOC: Selected Suricata demo alert</description>
+    <group>ai_soc,ids,suricata,</group>
+  </rule>
+</group>
+
+
+
+<group name="ai_soc_test,">
+  <rule id="100122" level="5">
+    <if_sid>86600</if_sid>
+    <field name="event_type">^ai_soc_risk_test$</field>
+    <description>AI SOC: Synthetic Risk Level Test Event</description>
+    <group>ai_soc,test_data,</group>
+  </rule>
+</group>
+
+<group name="ai_soc,windows,usb,">
+  <rule id="100123" level="5">
+    <decoded_as>windows_eventchannel</decoded_as>
+    <field name="win.system.channel">^Microsoft-Windows-DriverFrameworks-UserMode/Operational$</field>
+    <field name="win.system.eventID" type="pcre2">^(2100|2101|2102|2105|2106)$</field>
+    <field name="win.system.message" type="pcre2">USBSTOR</field>
+    <description>AI SOC: USB Storage Activity Detected</description>
+    <group>ai_soc,windows,usb,device_activity,</group>
+  </rule>
+
+  <rule id="100124" level="5">
+    <decoded_as>windows_eventchannel</decoded_as>
+    <field name="win.system.message" type="pcre2">USBSTOR</field>
+    <description>AI SOC: USB Decoder Test</description>
+    <group>ai_soc,windows,usb,test,</group>
+  </rule>
+</group>

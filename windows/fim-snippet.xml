@@ -1,0 +1,3 @@
+<!-- Add inside the existing syscheck section of Windows ossec.conf -->
+<!-- Dedicated SOCMind AI test folder -->
+<directories realtime="yes">C:\SOC-Monitoring</directories>

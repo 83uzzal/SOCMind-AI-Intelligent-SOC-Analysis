@@ -1,0 +1,11 @@
+<!-- Suricata EVE JSON -->
+<localfile>
+  <log_format>json</log_format>
+  <location>/var/log/suricata/eve.json</location>
+</localfile>
+
+<!-- SOCMind AI analysis JSON -->
+<localfile>
+  <log_format>json</log_format>
+  <location>/var/log/ai-soc/ai-analysis.json</location>
+</localfile>

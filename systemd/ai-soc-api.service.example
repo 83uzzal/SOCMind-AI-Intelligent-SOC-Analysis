@@ -1,0 +1,16 @@
+[Unit]
+Description=SOCMind AI FastAPI Service
+After=network.target ollama.service
+Wants=ollama.service
+
+[Service]
+Type=simple
+User=@SERVICE_USER@
+WorkingDirectory=@PROJECT_DIR@
+Environment="PATH=@PROJECT_DIR@/venv/bin"
+ExecStart=@PROJECT_DIR@/venv/bin/uvicorn app:app --host 127.0.0.1 --port 8000
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

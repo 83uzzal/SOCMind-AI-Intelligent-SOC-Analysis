@@ -73,8 +73,16 @@ def build_windows_4625_report(alert):
 
 
 def build_fim_report(alert):
-    path = alert.get("file_path") or alert.get("syscheck", {}).get("path") or "অজানা"
-    event = str(alert.get("file_event") or alert.get("syscheck", {}).get("event") or "").lower()
+    syscheck = alert.get("syscheck")
+
+    # Handle null or malformed syscheck values safely.
+    if not isinstance(syscheck, dict):
+        syscheck = {}
+
+    path = alert.get("file_path") or syscheck.get("path") or "অজানা"
+    event = str(
+        alert.get("file_event") or syscheck.get("event") or ""
+    ).lower()
     agent = alert.get("agent_name") or alert.get("computer") or "অজানা"
 
     descriptions = {
@@ -90,7 +98,7 @@ def build_fim_report(alert):
         "evidence": [
             f"ফাইলের অবস্থান: {path}।",
             f"পরিবর্তনের ধরন: {description}।",
-            f"মনিটরিং উৎস: Wazuh File Integrity Monitoring (FIM)।"
+            "মনিটরিং উৎস: Wazuh File Integrity Monitoring (FIM)।"
         ],
         "recommended_actions": [
             "ফাইল পরিবর্তনটি অনুমোদিত কার্যক্রমের অংশ কি না যাচাই করুন।",
